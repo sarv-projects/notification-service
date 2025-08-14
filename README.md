@@ -1,126 +1,70 @@
+# 📧 Notification Service (Spring Boot)
 
-````markdown
-📧 Notification Service (Spring Boot)
+A lightweight **email notification microservice** built with **Spring Boot**. Supports sending asynchronous emails via SMTP and is fully configurable for any SMTP provider.
 
-A lightweight **email notification microservice** built with **Spring Boot**.  
-Supports asynchronous email sending via SMTP and is fully configurable for any SMTP provider.
-
----
-
-  Features
+## ✨ Features
 - Send plain-text emails using SMTP
-- Asynchronous sending with `@Async` for better performance
-- RESTful API endpoints
-- Easily forkable and configurable
-- Works with Gmail, Outlook, and custom SMTP providers
+- Asynchronous sending with @Async for improved performance
+- Well-defined RESTful API with JSON payloads
+- Easily configurable for different environments
+- Works with common providers like Gmail, Outlook, and custom SMTP servers
 
----
-
- 🛠 Tech Stack
-- **Java 21**
-- **Spring Boot**
-- **Spring Mail (JavaMailSender)**
-- **Maven**
-
----
+## 🛠 Tech Stack
+- Java 21
+- Spring Boot
+- Spring Mail (JavaMailSender)
+- Maven
 
 ## ⚙️ Quick Start
+1. Clone the Repository  
+   git clone https://github.com/sarv-projects/notification-service.git  
+   cd notification-service
 
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/sarv-projects/notification-service.git
-cd notification-service
-````
+2. Configure Environment Variables  
+   On Linux/Mac:
+   export MAIL_USERNAME=youremail@example.com  
+   export MAIL_PASSWORD=your_app_password  
 
----
+   On Windows (PowerShell):  
+   setx MAIL_USERNAME "youremail@example.com"  
+   setx MAIL_PASSWORD "your_app_password"
 
-### 2️⃣ Set Environment Variables
+   **Note:** For Gmail, you must use an App Password instead of your main account password.
 
-```bash
-export MAIL_USERNAME=youremail@example.com
-export MAIL_PASSWORD=yourpassword
-```
+3. Run the Service  
+   mvn spring-boot:run
 
-> **Note:**
->
-> * For Gmail, use an **App Password**, not your main account password.
-
-
----
-
-### 3️⃣ Run the Service
-
-```bash
-mvn spring-boot:run
-```
-
----
-
-### 4️⃣ Test the API
-
-```bash
-curl -X POST http://localhost:8080/api/notifications/send-email \
--H "Content-Type: application/json" \
--d '{"to":"recipient@example.com","subject":"Hi","body":"messageexample"}'
-```
-
----
+4. Test the API with cURL  
+   curl -X POST http://localhost:8080/api/notifications/send-email -H "Content-Type: application/json" -d "{\"to\":\"recipient@example.com\",\"subject\":\"Hello from my service!\",\"body\":\"This is a test email message.\"}"
 
 ## 📂 Project Structure
-
-```
-notification-service/
- ├── src/main/java/com/sarvesh/notificationservice/
- │    ├── controller/      # REST API endpoints
- │    ├── service/         # Email sending logic
- │    └── NotificationServiceApplication.java
- ├── pom.xml               # Maven dependencies
+notification-service/  
+ ├── src/main/java/com/sarvesh/notificationservice/  
+ │   ├── controller/        # REST API endpoints  
+ │   ├── service/           # Email sending logic  
+ │   ├── dto/               # Data Transfer Objects (DTOs)  
+ │   └── NotificationServiceApplication.java  
+ ├── pom.xml                # Maven dependencies  
  └── README.md
-```
 
----
-
-## 🔧 Configuration
-
-In `application.properties` (already included in this repo), SMTP properties are read from environment variables:
-
-```properties
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=${MAIL_USERNAME}
-spring.mail.password=${MAIL_PASSWORD}
-spring.mail.properties.mail.smtp.auth=true
+## 🔧 Configuration (application.properties)
+spring.mail.host=smtp.gmail.com  
+spring.mail.port=587  
+spring.mail.username=${MAIL_USERNAME}  
+spring.mail.password=${MAIL_PASSWORD}  
+spring.mail.properties.mail.smtp.auth=true  
 spring.mail.properties.mail.smtp.starttls.enable=true
-```
-
-No passwords or private data are stored in the repo.
-
----
 
 ## 🧪 API Endpoints
 
-**POST** `/api/notifications/send-email`
-Request body:
+### POST /api/notifications/send-email
+Sends an email using the details provided in a JSON request body.
 
-```json
-{
-  "to": "recipient@example.com",
-  "subject": "Hello",
-  "body": "This is a test email"
-}
-```
+**Request Body (NotificationRequest DTO):**  
+{ "to": "recipient@example.com", "subject": "Hello", "body": "This is a test email" }
 
-Response:
+**Success Response (200 OK - NotificationResponse DTO):**  
+{ "success": true, "message": "Email sent successfully to recipient@example.com" }
 
-```json
-{
-  "status": "Email sent successfully"
-}
-```
-
----
-
-
-
-
-
+**Error Response (500 Internal Server Error - NotificationResponse DTO):**  
+{ "success": false, "message": "Failed to send email: [specific error message]" }
