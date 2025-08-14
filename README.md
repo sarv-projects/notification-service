@@ -1,14 +1,13 @@
-Here’s a **complete README.md** with *everything* inside so someone can just land, scroll, and run without hunting for extra files.
 
 ````markdown
-# 📧 Notification Service (Spring Boot)
+📧 Notification Service (Spring Boot)
 
 A lightweight **email notification microservice** built with **Spring Boot**.  
 Supports asynchronous email sending via SMTP and is fully configurable for any SMTP provider.
 
 ---
 
-##  Features
+  Features
 - Send plain-text emails using SMTP
 - Asynchronous sending with `@Async` for better performance
 - RESTful API endpoints
@@ -17,7 +16,7 @@ Supports asynchronous email sending via SMTP and is fully configurable for any S
 
 ---
 
-## 🛠 Tech Stack
+ 🛠 Tech Stack
 - **Java 21**
 - **Spring Boot**
 - **Spring Mail (JavaMailSender)**
@@ -45,12 +44,7 @@ export MAIL_PASSWORD=yourpassword
 > **Note:**
 >
 > * For Gmail, use an **App Password**, not your main account password.
-> * For Windows PowerShell:
->
-> ```powershell
-> setx MAIL_USERNAME "youremail@example.com"
-> setx MAIL_PASSWORD "yourpassword"
-> ```
+
 
 ---
 
