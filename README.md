@@ -1,4 +1,4 @@
-# 📧 Notification Service (Spring Boot)
+# 📧 Notification Service 
 
 A lightweight **email notification microservice** built with **Spring Boot**. Supports sending asynchronous emails via SMTP and is fully configurable for any SMTP provider.
 
